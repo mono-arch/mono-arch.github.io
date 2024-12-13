@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Neural Network on ggk</title>
+        <link>http://localhost:1313/zh-cn/categories/neural-network/</link>
+        <description>Recent content in Neural Network on ggk</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>ggk</copyright>
+        <lastBuildDate>Fri, 13 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/zh-cn/categories/neural-network/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>神经网络中的非线性函数</title>
+        <link>http://localhost:1313/zh-cn/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0/</link>
+        <pubDate>Fri, 13 Dec 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/zh-cn/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0/</guid>
+        <description>&lt;h1 id=&#34;前言&#34;&gt;前言
+&lt;/h1&gt;&lt;p&gt;由于想要做一个较为通用的AI芯片，因此需要支持尽可能多的激活函数，而非线性函数硬件实现比较复杂，如果为每一种非线性函数都定制硬件，浪费的资源太多，因此本文总结一下神经网络中常用的非线性函数以及可能的实现方式&lt;/p&gt;
+&lt;h2 id=&#34;softmax&#34;&gt;Softmax
+&lt;/h2&gt;$$
+S\left( x_i \right) =\frac{e^{x_i}}{\underset{j=0}{\overset{N-1}{\varSigma}}e^{x_j}}
+$$&lt;p&gt;
+一般要考虑exp和除法的近似实现。&lt;/p&gt;
+&lt;h2 id=&#34;layernorm&#34;&gt;Layernorm
+&lt;/h2&gt;&lt;p&gt;对于一个输入向量 $\mathbf{x} = [x_1, x_2, &amp;hellip;, x_n]$，Layer Normalization 的公式如下：&lt;/p&gt;
+$$
+\mathrm{LayerNorm}(\mathbf{x}) = \gamma \cdot \frac{\mathbf{x} - \mathrm{E}[\mathbf{x}]}{\sqrt{\mathrm{Var}[\mathbf{x}] + \epsilon}} + \beta
+$$&lt;p&gt;其中：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\mathrm{E}[\mathbf{x}]$ 是 $\mathbf{x}$ 的均值。&lt;/li&gt;
+&lt;li&gt;$\mathrm{Var}[\mathbf{x}]$ 是 $\mathbf{x}$ 的方差。&lt;/li&gt;
+&lt;li&gt;$\gamma$ 和 $\beta$ 是可学习的参数，分别用于缩放和平移。&lt;/li&gt;
+&lt;li&gt;$\epsilon$ 是一个小的常数，用来防止除以零。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在llama中使用的是RMSnorm，计算相对简单。&lt;/p&gt;
+&lt;p&gt;对于同样的输入向量 $\mathbf{x} = [x_1, x_2, &amp;hellip;, x_n]$，RMS Normalization 的公式可以简化为：&lt;/p&gt;
+$$
+\mathrm{RMSNorm}(\mathbf{x}) = \frac{\mathbf{x}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}x_i^2 + \epsilon}}
+$$</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Hugo, the world's fastest framework for building websites">
-<title>About</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="非线性函数归纳">
+<title>神经网络中的非线性函数</title>
 
-<link rel='canonical' href='http://localhost:1313/about/'>
+<link rel='canonical' href='http://localhost:1313/zh-cn/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="About">
-<meta property='og:description' content="Hugo, the world's fastest framework for building websites">
-<meta property='og:url' content='http://localhost:1313/about/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="神经网络中的非线性函数">
+<meta property='og:description' content="非线性函数归纳">
+<meta property='og:url' content='http://localhost:1313/zh-cn/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0/'>
 <meta property='og:site_name' content='ggk'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:published_time' content='2019-02-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-10-09T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="About">
-<meta name="twitter:description" content="Hugo, the world's fastest framework for building websites">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-13T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="神经网络中的非线性函数">
+<meta name="twitter:description" content="非线性函数归纳">
     <link rel="shortcut icon" href="/favicon.ico" />
+
+<link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/katex.min.css" />
+<script defer src="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });"></script>
+		
 
     </head>
     <body class="
@@ -42,7 +54,7 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -52,7 +64,7 @@
         
             
             <figure class="site-avatar">
-                <a href="/">
+                <a href="/zh-cn/">
                 
                     
                     
@@ -71,7 +83,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">ggk</a></h1>
+            <h1 class="site-name"><a href="/zh-cn">ggk</a></h1>
             <h2 class="site-description">mono-arch</h2>
         </div>
     </header><ol class="menu-social">
@@ -121,7 +133,7 @@
         
         
         <li >
-            <a href='/' >
+            <a href='/zh-cn/' >
                 
                 
                 
@@ -135,13 +147,13 @@
 
 
                 
-                <span>Home</span>
+                <span>主页</span>
             </a>
         </li>
         
         
-        <li  class='current' >
-            <a href='/about/' >
+        <li >
+            <a href='/zh-cn/%E5%85%B3%E4%BA%8E/' >
                 
                 
                 
@@ -154,65 +166,7 @@
 
 
                 
-                <span>About</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect x="3" y="4" width="18" height="4" rx="2" />
-  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-  <line x1="10" y1="12" x2="14" y2="12" />
-</svg>
-
-
-
-                
-                <span>Archives</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>Search</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/links/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
-  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
-</svg>
-
-
-
-                
-                <span>Links</span>
+                <span>关于</span>
             </a>
         </li>
         
@@ -233,9 +187,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/" selected>English</option>
+                                    <option value="http://localhost:1313/" >English</option>
                                 
-                                    <option value="http://localhost:1313/zh-cn/" >中文</option>
+                                    <option value="http://localhost:1313/zh-cn/" selected>中文</option>
                                 
                             </select>
                         </li>
@@ -260,7 +214,7 @@
 
 
 
-                        <span>Dark Mode</span>
+                        <span>暗色模式</span>
                     </li>
                 
             </ol>
@@ -268,7 +222,46 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#softmax">Softmax</a></li>
+    <li><a href="#layernorm">Layernorm</a></li>
+    <li><a href="#sigmoid">Sigmoid</a></li>
+    <li><a href="#tanh">tanh</a></li>
+    <li><a href="#reluleaky-relu等类relu函数">ReLU、Leaky ReLU等类ReLU函数</a></li>
+    <li><a href="#swish">Swish</a></li>
+    <li><a href="#gelu">GeLU</a></li>
+    <li><a href="#swiglu">SwiGLU</a></li>
+    <li><a href="#geglu">GeGLU</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -276,15 +269,23 @@
 
     <div class="article-details">
     
+    <header class="article-category">
+        
+            <a href="/zh-cn/categories/neural-network/" >
+                Neural Network
+            </a>
+        
+    </header>
+    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/about/">About</a>
+            <a href="/zh-cn/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0/">神经网络中的非线性函数</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Hugo, the world&#39;s fastest framework for building websites
+            非线性函数归纳
         </h3>
         
     </div>
@@ -305,7 +306,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2019-28-02</time>
+                <time class="article-time--published">2024-13-12</time>
             </div>
         
 
@@ -320,32 +321,13 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
     </footer>
     
 
-    
-        <footer class="article-translations">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M4 5h7" />
-  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
-  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
-  <path d="M12 20l4 -9l4 9" />
-  <path d="M19.1 18h-6.2" />
-</svg>
-
-
-
-            <div>
-                
-                    <a href="http://localhost:1313/zh-cn/%E5%85%B3%E4%BA%8E/" class="link">中文</a>
-                
-            </div>
-        </footer>
     
 </div>
 
@@ -354,26 +336,98 @@
     <section class="article-content">
     
     
-    <p>Written in Go, Hugo is an open source static site generator available under the <a class="link" href="https://github.com/gohugoio/hugo/blob/master/LICENSE"  target="_blank" rel="noopener"
-    >Apache License 2.0.</a> Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.</p>
-<p>Hugo makes use of a variety of open source projects including:</p>
+    <h1 id="前言">前言
+</h1><p>由于想要做一个较为通用的AI芯片，因此需要支持尽可能多的激活函数，而非线性函数硬件实现比较复杂，如果为每一种非线性函数都定制硬件，浪费的资源太多，因此本文总结一下神经网络中常用的非线性函数以及可能的实现方式</p>
+<h2 id="softmax">Softmax
+</h2>$$
+Softmax\left( x_i \right) =\frac{e^{x_i}}{\sum_{i=0}^n e^{x_j}}
+$$<p>
+一般要考虑exp和除法的近似实现。<br>
+可以参考两篇论文<a class="link" href="https://ieeexplore.ieee.org/abstract/document/10323725"  target="_blank" rel="noopener"
+    >SOLE: Hardware-Software Co-design of Softmax  and LayerNorm for Efficient Transformer Inference</a>和<a class="link" href="https://dl.acm.org/doi/abs/10.1145/3665314.3670816"  target="_blank" rel="noopener"
+    >Hyft: A Reconfigurable Softmax Accelerator with Hybrid Numeric Format for both Training and Inference</a>，关于浮点除法的硬件近似和优化参考<a class="link" href="https://dl.acm.org/doi/abs/10.1145/3316781.3317773"  target="_blank" rel="noopener"
+    >Approximate Integer and Floating-Point Dividers with Near-Zero Error Bias</a>。</p>
+<h2 id="layernorm">Layernorm
+</h2><p>用在attetion之前，对token进行归一化。对于一个输入向量 $\mathbf{x} = [x_1, x_2, &hellip;, x_n]$，Layer Normalization 的公式如下：</p>
+$$
+\mathrm{LayerNorm}(\mathbf{x}) = \gamma \cdot \frac{\mathbf{x} - \mathrm{E}[\mathbf{x}]}{\sqrt{\mathrm{Var}[\mathbf{x}] + \epsilon}} + \beta
+$$<p>其中：</p>
 <ul>
-<li><a class="link" href="https://github.com/yuin/goldmark"  target="_blank" rel="noopener"
-    >https://github.com/yuin/goldmark</a></li>
-<li><a class="link" href="https://github.com/alecthomas/chroma"  target="_blank" rel="noopener"
-    >https://github.com/alecthomas/chroma</a></li>
-<li><a class="link" href="https://github.com/muesli/smartcrop"  target="_blank" rel="noopener"
-    >https://github.com/muesli/smartcrop</a></li>
-<li><a class="link" href="https://github.com/spf13/cobra"  target="_blank" rel="noopener"
-    >https://github.com/spf13/cobra</a></li>
-<li><a class="link" href="https://github.com/spf13/viper"  target="_blank" rel="noopener"
-    >https://github.com/spf13/viper</a></li>
+<li>$\mathrm{E}[\mathbf{x}]$ 是 $\mathbf{x}$ 的均值。</li>
+<li>$\mathrm{Var}[\mathbf{x}]$ 是 $\mathbf{x}$ 的方差。</li>
+<li>$\gamma$ 和 $\beta$ 是可学习的参数，分别用于缩放和平移。</li>
+<li>$\epsilon$ 是一个小的常数，用来防止除以零。</li>
 </ul>
-<p>Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.</p>
-<p>Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.</p>
-<p>Websites built with Hugo are extremely fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.</p>
-<p>Learn more and contribute on <a class="link" href="https://github.com/gohugoio"  target="_blank" rel="noopener"
-    >GitHub</a>.</p>
+<p>在llama中使用的是RMSnorm，计算相对简单。</p>
+<p>对于同样的输入向量 $\mathbf{x} = [x_1, x_2, &hellip;, x_n]$，RMS Normalization 的公式可以简化为：</p>
+$$
+\mathrm{RMSNorm}(\mathbf{x}) = \frac{\mathbf{x}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}x_i^2 + \epsilon}}
+$$<p>二者都需要计算倒数平方根，经典的倒数平方根算法见<a class="link" href="https://zhuanlan.zhihu.com/p/638013235"  target="_blank" rel="noopener"
+    >快速平方根倒数算法</a></p>
+<h2 id="sigmoid">Sigmoid
+</h2>$$
+Sigmoid(x) = \frac{1}{1 + e^{-x}}
+$$<p>常用插值法实现，有一个比较有用的特性：</p>
+$$
+Sigmoid\left( -x \right) =1-Sigmoid\left( x \right) 
+$$<h2 id="tanh">tanh
+</h2><p>双曲正切函数，可以由sigmoid实现，公式为：</p>
+$$
+\tanh \left( x \right) =\frac{e^x-e^{-x}}{e^x+e^{-x}}=2sigmoid\left( 2x \right) -1
+$$<h2 id="reluleaky-relu等类relu函数">ReLU、Leaky ReLU等类ReLU函数
+</h2><p>公式比较简单，就不写了，硬件实现也比较简单，没有特殊计算。</p>
+<h2 id="swish">Swish
+</h2><p>sigmoid基础上的一种复杂形式，公式为：</p>
+$$
+Swish\left( x \right) =x*Sigmoid\left( x \right) 
+$$<h2 id="gelu">GeLU
+</h2><p>GELU 的公式有两种常见的形式：</p>
+<ul>
+<li><strong>精确形式</strong>：</li>
+</ul>
+$$
+\mathrm{GELU}(x) = x \cdot \Phi(x)
+$$<p>其中 $\Phi(x)$ 是标准正态分布的累积分布函数 (CDF)，可以表达为：</p>
+$$
+\Phi(x) = \frac{1}{2} \left[ 1 + \operatorname{erf} \left( \frac{x}{\sqrt{2}} \right) \right]
+$$<ul>
+<li><strong>近似形式</strong>：</li>
+</ul>
+$$
+\mathrm{GELU}(x) \approx 0.5x \left( 1 + \tanh \left( \sqrt{\frac{2}{\pi}} \left( x + 0.044715x^3 \right) \right) \right)
+$$<h2 id="swiglu">SwiGLU
+</h2><p>结合了Swish和GLU激活函数，SwiGLU 的公式如下：</p>
+$$
+\mathrm{SwiGLU}(x, W, V, b, c) = (\sigma(Wx + b) \otimes (Vx + c))
+$$<p>其中：</p>
+<ul>
+<li>$\sigma$ 表示 Sigmoid 函数。</li>
+<li>$W$ 和 $V$ 是权重矩阵。</li>
+<li>$b$ 和 $c$ 是偏置向量。</li>
+<li>$\otimes$ 表示元素级别的乘法。</li>
+</ul>
+<p>更具体地，如果我们将输入$x$分为两部分$x_1$和$x_2$（例如，在某些Transformer变体中），则SwiGLU可以写作：</p>
+$$
+\mathrm{SwiGLU}(\mathbf{x}) = \sigma(\mathbf{x}_1) \otimes \mathbf{x}_2
+$$<p>这里$\mathbf{x}_1$和$\mathbf{x}_2$是输入向量$\mathbf{x}$的两个部分，通常通过线性变换得到。</p>
+<h2 id="geglu">GeGLU
+</h2><p>结合了GELU和GLU，GeGLU 的公式如下：</p>
+$$
+\mathrm{GeGLU}(\mathbf{x}) = \left( \mathrm{GELU}(\mathbf{W}_1 \mathbf{x} + \mathbf{b}_1) \right) \otimes (\mathbf{W}_2 \mathbf{x} + \mathbf{b}_2)
+$$<p>其中：</p>
+<ul>
+<li>$\mathbf{x}$ 是输入向量。</li>
+<li>$\mathbf{W}_1$ 和 $\mathbf{W}_2$ 是权重矩阵。</li>
+<li>$\mathbf{b}_1$ 和 $\mathbf{b}_2$ 是偏置向量。</li>
+<li>$\mathrm{GELU}(\cdot)$ 表示 GELU 激活函数。</li>
+<li>$\otimes$ 表示元素级别的乘法。</li>
+</ul>
+<p>更具体地，如果我们将输入$\mathbf{x}$通过线性变换分为两部分$\mathbf{x}_1$和$\mathbf{x}_2$，则GeGLU可以写作：</p>
+$$
+\mathrm{GeGLU}(\mathbf{x}) = \mathrm{GELU}(\mathbf{x}_1) \otimes \mathbf{x}_2
+$$<p>这里$\mathbf{x}_1$和$\mathbf{x}_2$是通过不同的线性变换从输入$\mathbf{x}$得到的两个部分。在实际应用中，$\mathbf{x}_1$通常用于计算门控信号，而$\mathbf{x}_2$则是要被门控的信号。</p>
+<h1 id="总结">总结
+</h1><p>想做通用还是尽量把exp，除法，sigmoid这种简单的做成专用电路，更复杂的激活函数也由这些算子实现</p>
 
 </section>
 
@@ -381,19 +435,7 @@
     <footer class="article-footer">
     
 
-    <section class="article-lastmod">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-        <span>
-            Last updated on Oct 09, 2020 00:00 UTC
-        </span>
-    </section></footer>
+    </footer>
 
 
     
@@ -462,8 +504,8 @@
     <section class="powerby">
         
             战无不胜的毛泽东思想万岁！ <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
