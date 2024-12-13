@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <sitemap>
-    <loc>https://mono-arch.github.io/en/sitemap.xml</loc>
-    
-      <lastmod>2024-12-10T22:13:38+08:00</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>https://mono-arch.github.io/zh-cn/sitemap.xml</loc>
-    
-      <lastmod>2024-12-13T00:00:00+00:00</lastmod>
-    
-  </sitemap>
-  
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://mono-arch.github.io/</loc>
+    <lastmod>2024-12-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mono-arch.github.io/categories/</loc>
+    <lastmod>2024-12-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mono-arch.github.io/categories/neural-network/</loc>
+    <lastmod>2024-12-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mono-arch.github.io/post/</loc>
+    <lastmod>2024-12-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mono-arch.github.io/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2024-12-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mono-arch.github.io/p/myfirstblog/</loc>
+    <lastmod>2024-12-10T22:13:38+08:00</lastmod>
+  </url><url>
+    <loc>https://mono-arch.github.io/archives/</loc>
+    <lastmod>2019-05-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mono-arch.github.io/page/</loc>
+    <lastmod>2019-05-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mono-arch.github.io/links/</loc>
+  </url><url>
+    <loc>https://mono-arch.github.io/search/</loc>
+  </url><url>
+    <loc>https://mono-arch.github.io/tags/</loc>
+  </url><url>
+    <loc>https://mono-arch.github.io/categories/test/</loc>
+  </url><url>
+    <loc>https://mono-arch.github.io/%E5%85%B3%E4%BA%8E/</loc>
+  </url>
+</urlset>
