@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>TinyML on ggk</title>
+        <link>https://mono-arch.github.io/categories/tinyml/</link>
+        <description>Recent content in TinyML on ggk</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>ggk</copyright>
+        <lastBuildDate>Fri, 13 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://mono-arch.github.io/categories/tinyml/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Lec2：神经网络基础</title>
+        <link>https://mono-arch.github.io/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</link>
+        <pubDate>Fri, 13 Dec 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://mono-arch.github.io/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</guid>
+        <description>&lt;h2 id=&#34;常用的神经网络层&#34;&gt;常用的神经网络层
+&lt;/h2&gt;&lt;h3 id=&#34;全连接层&#34;&gt;全连接层
+&lt;/h3&gt;&lt;p&gt;  权重的数量：$c_i*c_o$，分别代表输入维度和输出维度&lt;/p&gt;
+&lt;h3 id=&#34;卷积层&#34;&gt;卷积层
+&lt;/h3&gt;&lt;h4 id=&#34;emsp感受野&#34;&gt; 感受野
+&lt;/h4&gt;&lt;p&gt;  是指输出的一个像素由多少元素决定，越大说明涵盖的信息越全面&lt;/p&gt;
+&lt;h4 id=&#34;emsp参数&#34;&gt; 参数
+&lt;/h4&gt;&lt;p&gt;  首先是一些概念，stride指卷积的步长，padding指边缘填充的元素数量，pooling：maxpooling、average pooling，可以降维。&lt;/p&gt;
+&lt;p&gt;  假设输入的尺寸是: $n\times c_i\times w_i\times h_i$，分别表示batch_size,输入通道数，输入feature map的宽度和高度&lt;/p&gt;
+&lt;p&gt;  输出的尺寸是：$n\times c_o\times w_o\times h_o$，分别表示batch_size,输出通道数，输出feature map的宽度和高度&lt;/p&gt;
+&lt;p&gt;  权重的形状：$c_i\times c_o\times k_w\times k_h$，后两个是kernal的size，一般是（3，3），（5，5）&lt;/p&gt;
+&lt;p&gt;  高和宽一般相等，输出的尺寸可以计算为：&lt;/p&gt;
+$$
+h_o=\frac{h_i+2p-k}{s}+1
+$$&lt;h4 id=&#34;emsp参数量计算&#34;&gt; 参数量计算
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;权重weihgt，即模型的大小，计算公式为：&lt;/li&gt;
+&lt;/ul&gt;
+$$
+c_o\times c_i/g\times k_w\times k_h
+$$&lt;p&gt;  对于组卷积可以减少权重数量：&lt;/p&gt;
+$$
+c_o\times c_i/g\times k_w\times k_h
+$$&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;激活activation，一般和所在层输出feature map大小相同&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MAC的数量,可以理解为输出的feature map大小乘上kernal的尺寸：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+$$
+c_i\times k_w\times k_h\times c_o\times w_o\times h_o
+$$&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;FLOPs和FLOPS&lt;/p&gt;
+&lt;p&gt;前者表示总共的运算量，后者表示每秒的运算量&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>Lec3：剪枝和稀疏</title>
+        <link>https://mono-arch.github.io/p/lec3%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/</link>
+        <pubDate>Fri, 13 Dec 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://mono-arch.github.io/p/lec3%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/</guid>
+        <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+&lt;/h2&gt;&lt;h3 id=&#34;什么是剪枝&#34;&gt;什么是剪枝
+&lt;/h3&gt;&lt;p&gt;在保持模型性能的前提下，剪掉多余的神经元和权重,使模型变得更小&lt;/p&gt;
+&lt;h2 id=&#34;剪枝的粒度&#34;&gt;剪枝的粒度
+&lt;/h2&gt;&lt;p&gt;细粒度剪枝也叫非结构化剪枝，这种方式更灵活，能剪掉的东西更多，但硬件难以支持，剪了可能也无法提高硬件速度，粗粒度剪枝更规整，硬件友好，但剪枝比率小。&lt;/p&gt;
+&lt;p&gt;下图越往右粒度越粗、剪枝比率越小、对硬件越友好&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://mono-arch.github.io/p/lec3%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/%E5%89%AA%E6%9E%9D%E5%BD%A2%E5%BC%8F.png&#34;
+	width=&#34;1244&#34;
+	height=&#34;409&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;剪枝形式&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;304&#34;
+		data-flex-basis=&#34;729px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;  Fine-grained剪枝能找到更多冗余权重，但没有规律，只能在定制硬件上支持，大多数时候都没用。&lt;/p&gt;
+&lt;p&gt;  Pattern-based 剪枝相对使用，如2：4结构化剪枝，在每四个连续的权重中剪掉两个。&lt;/p&gt;
+&lt;p&gt;  channel级剪枝对硬件来说最直观，但剪枝比率也最小。&lt;/p&gt;
+&lt;h2 id=&#34;剪枝的标准&#34;&gt;剪枝的标准
+&lt;/h2&gt;&lt;p&gt;  剪枝剪掉的是相对不重要的神经元和权重，剪掉对模型影响最小的部分。&lt;/p&gt;
+&lt;p&gt;  &lt;strong&gt;Magnitude-based Pruning&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  根据权重的绝对值剪枝，剪去绝对值较小的权重，或者根据权重的平方和。&lt;/p&gt;
+&lt;p&gt;  &lt;strong&gt;Scaling-based Pruning&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  channel级剪枝，给每个输出通道乘一个scaling factor，作为参数在训练中优化，最后剪去较小的值对应的channel。&lt;/p&gt;
+&lt;p&gt;   &lt;strong&gt;Second-Order-based Pruning&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;   最小化因为剪枝引起的损失函数的误差&lt;/p&gt;
+&lt;p&gt;   &lt;strong&gt;Percentage-of-Zero-based Pruning&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;   经过activation之后某个通道0的比例比较多就剪去&lt;/p&gt;
+&lt;p&gt;   &lt;strong&gt;Regression-based Pruning&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;   同样是最小化误差，选用的是剪枝层剪枝后的输出和未剪枝时的输出之间的误差&lt;/p&gt;
+&lt;h2 id=&#34;剪枝率&#34;&gt;剪枝率
+&lt;/h2&gt;&lt;h3 id=&#34;均匀和非均匀&#34;&gt;均匀和非均匀
+&lt;/h3&gt;&lt;p&gt;   每一层对剪枝的敏感度不同，剪枝率也应该不相同&lt;/p&gt;
+&lt;h3 id=&#34;如何找到合适的剪枝率&#34;&gt;如何找到合适的剪枝率
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;sensitivity-analysis&#34;&gt;sensitivity analysis
+&lt;/h4&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  对每一层进行敏感度分析，观察每一层单独剪枝比率对模型准确率的影响，然后设定一个准确率的阈值来确定每一层剪枝的剪枝率。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;automatic-pruning&#34;&gt;Automatic Pruning
+&lt;/h4&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  AMC:AutoML for Model Compression,把剪枝看作一个强化学习问题，自动寻找每一层合适的剪枝率,比手工寻找更有效。&lt;/p&gt;
+&lt;h2 id=&#34;剪枝后的微调或重新训练&#34;&gt;剪枝后的微调或重新训练
+&lt;/h2&gt;&lt;p&gt;  剪枝之后模型经过微调效果会恢复一些，一般微调的学习率设置的很小&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;迭代剪枝&#34;&gt;迭代剪枝
+&lt;/h3&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;  把剪枝和重新训练作为一轮迭代，迭代多轮剪枝率更大&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;微调和训练中的regression&#34;&gt;微调和训练中的regression
+&lt;/h3&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;惩罚非零的参数，鼓励小参数&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
