@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="part 1">
-<title>Lec3：剪枝和稀疏</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
+<title></title>
 
-<link rel='canonical' href='https://mono-arch.github.io/p/lec3%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/'>
+<link rel='canonical' href='https://mono-arch.github.io/p/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Lec3：剪枝和稀疏">
-<meta property='og:description' content="part 1">
-<meta property='og:url' content='https://mono-arch.github.io/p/lec3%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="">
+<meta property='og:description' content="">
+<meta property='og:url' content='https://mono-arch.github.io/p/'>
 <meta property='og:site_name' content='ggk'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-13T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Lec3：剪枝和稀疏">
-<meta name="twitter:description" content="part 1">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' />
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="">
     <link rel="shortcut icon" href="/favicon.ico" />
-
-<link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/katex.min.css" />
-<script defer src="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
-  onload="renderMathInElement(document.body, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          throwOnError: false
-        });"></script>
+<script>
+	MathJax = {
+	  tex: {
+		inlineMath: [['$', '$'], ['\\(', '\\)']]
+	  },
+	  svg: {
+		fontCache: 'global'
+	  }
+	};
+	</script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 		
 
     </head>
@@ -257,61 +258,7 @@
     </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#introduction">Introduction</a>
-      <ol>
-        <li><a href="#什么是剪枝">什么是剪枝</a></li>
-      </ol>
-    </li>
-    <li><a href="#剪枝的粒度">剪枝的粒度</a></li>
-    <li><a href="#剪枝的标准">剪枝的标准</a></li>
-    <li><a href="#剪枝率">剪枝率</a>
-      <ol>
-        <li><a href="#均匀和非均匀">均匀和非均匀</a></li>
-        <li><a href="#如何找到合适的剪枝率">如何找到合适的剪枝率</a>
-          <ol>
-            <li><a href="#sensitivity-analysis">sensitivity analysis</a></li>
-            <li><a href="#automatic-pruning">Automatic Pruning</a></li>
-          </ol>
-        </li>
-      </ol>
-    </li>
-    <li><a href="#剪枝后的微调或重新训练">剪枝后的微调或重新训练</a>
-      <ol>
-        <li><a href="#迭代剪枝">迭代剪枝</a></li>
-        <li><a href="#微调和训练中的regression">微调和训练中的regression</a></li>
-      </ol>
-    </li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
+    
 
             <main class="main full-width">
     <article class="main-article">
@@ -319,49 +266,18 @@
 
     <div class="article-details">
     
-    <header class="article-category">
-        
-            <a href="/categories/tinyml/" >
-                TinyML
-            </a>
-        
-    </header>
-    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/lec3%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/">Lec3：剪枝和稀疏</a>
+            <a href="/p/"></a>
         </h2>
     
-        
-        <h3 class="article-subtitle">
-            part 1
-        </h3>
         
     </div>
 
     
     
     
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2024-13-12</time>
-            </div>
-        
-
-        
-    </footer>
     
 
     
@@ -372,72 +288,7 @@
     <section class="article-content">
     
     
-    <h2 id="introduction">Introduction
-</h2><h3 id="什么是剪枝">什么是剪枝
-</h3><p>在保持模型性能的前提下，剪掉多余的神经元和权重,使模型变得更小</p>
-<h2 id="剪枝的粒度">剪枝的粒度
-</h2><p>细粒度剪枝也叫非结构化剪枝，这种方式更灵活，能剪掉的东西更多，但硬件难以支持，剪了可能也无法提高硬件速度，粗粒度剪枝更规整，硬件友好，但剪枝比率小。</p>
-<p>下图越往右粒度越粗、剪枝比率越小、对硬件越友好</p>
-<p><img src="/p/lec3%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/%E5%89%AA%E6%9E%9D%E5%BD%A2%E5%BC%8F.png"
-	width="1244"
-	height="409"
-	
-	loading="lazy"
-	
-		alt="剪枝形式"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="304"
-		data-flex-basis="729px"
-	
-></p>
-<p>  Fine-grained剪枝能找到更多冗余权重，但没有规律，只能在定制硬件上支持，大多数时候都没用。</p>
-<p>  Pattern-based 剪枝相对使用，如2：4结构化剪枝，在每四个连续的权重中剪掉两个。</p>
-<p>  channel级剪枝对硬件来说最直观，但剪枝比率也最小。</p>
-<h2 id="剪枝的标准">剪枝的标准
-</h2><p>  剪枝剪掉的是相对不重要的神经元和权重，剪掉对模型影响最小的部分。</p>
-<p>  <strong>Magnitude-based Pruning</strong></p>
-<p>  根据权重的绝对值剪枝，剪去绝对值较小的权重，或者根据权重的平方和。</p>
-<p>  <strong>Scaling-based Pruning</strong></p>
-<p>  channel级剪枝，给每个输出通道乘一个scaling factor，作为参数在训练中优化，最后剪去较小的值对应的channel。</p>
-<p>   <strong>Second-Order-based Pruning</strong></p>
-<p>   最小化因为剪枝引起的损失函数的误差</p>
-<p>   <strong>Percentage-of-Zero-based Pruning</strong></p>
-<p>   经过activation之后某个通道0的比例比较多就剪去</p>
-<p>   <strong>Regression-based Pruning</strong></p>
-<p>   同样是最小化误差，选用的是剪枝层剪枝后的输出和未剪枝时的输出之间的误差</p>
-<h2 id="剪枝率">剪枝率
-</h2><h3 id="均匀和非均匀">均匀和非均匀
-</h3><p>   每一层对剪枝的敏感度不同，剪枝率也应该不相同</p>
-<h3 id="如何找到合适的剪枝率">如何找到合适的剪枝率
-</h3><ul>
-<li>
-<h4 id="sensitivity-analysis">sensitivity analysis
-</h4></li>
-</ul>
-<p>  对每一层进行敏感度分析，观察每一层单独剪枝比率对模型准确率的影响，然后设定一个准确率的阈值来确定每一层剪枝的剪枝率。</p>
-<ul>
-<li>
-<h4 id="automatic-pruning">Automatic Pruning
-</h4></li>
-</ul>
-<p>  AMC:AutoML for Model Compression,把剪枝看作一个强化学习问题，自动寻找每一层合适的剪枝率,比手工寻找更有效。</p>
-<h2 id="剪枝后的微调或重新训练">剪枝后的微调或重新训练
-</h2><p>  剪枝之后模型经过微调效果会恢复一些，一般微调的学习率设置的很小</p>
-<ul>
-<li>
-<h3 id="迭代剪枝">迭代剪枝
-</h3></li>
-</ul>
-<p>  把剪枝和重新训练作为一轮迭代，迭代多轮剪枝率更大</p>
-<ul>
-<li>
-<h3 id="微调和训练中的regression">微调和训练中的regression
-</h3></li>
-</ul>
-<p>惩罚非零的参数，鼓励小参数</p>
-
+    
 </section>
 
 
@@ -453,28 +304,6 @@
     
 
     
-
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Lec2：神经网络基础</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
 
      
     
@@ -529,7 +358,7 @@
         
             2020 - 
         
-        2024 ggk
+        2025 ggk
     </section>
     
     <section class="powerby">

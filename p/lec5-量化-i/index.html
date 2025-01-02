@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Basics">
-<title>Lec2：神经网络基础</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Quantization">
+<title>Lec5 :量化 I</title>
 
-<link rel='canonical' href='https://mono-arch.github.io/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/'>
+<link rel='canonical' href='https://mono-arch.github.io/p/lec5-%E9%87%8F%E5%8C%96-i/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Lec2：神经网络基础">
-<meta property='og:description' content="Basics">
-<meta property='og:url' content='https://mono-arch.github.io/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Lec5 :量化 I">
+<meta property='og:description' content="Quantization">
+<meta property='og:url' content='https://mono-arch.github.io/p/lec5-%E9%87%8F%E5%8C%96-i/'>
 <meta property='og:site_name' content='ggk'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-13T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Lec2：神经网络基础">
-<meta name="twitter:description" content="Basics">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-26T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Lec5 :量化 I">
+<meta name="twitter:description" content="Quantization">
     <link rel="shortcut icon" href="/favicon.ico" />
 <script>
 	MathJax = {
@@ -280,14 +280,17 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#常用的神经网络层">常用的神经网络层</a>
+    <li><a href="#数据类型">数据类型</a>
       <ol>
-        <li><a href="#全连接层">全连接层</a></li>
-        <li><a href="#卷积层">卷积层</a>
+        <li><a href="#整数">整数</a></li>
+        <li><a href="#定点数">定点数</a></li>
+        <li><a href="#浮点数">浮点数</a></li>
+        <li><a href="#k-means-based-weight-quantization"><strong>K-Means-based Weight Quantization</strong></a></li>
+        <li><a href="#linear-quantization">Linear Quantization</a>
           <ol>
-            <li><a href="#emsp感受野"> 感受野</a></li>
-            <li><a href="#emsp参数"> 参数</a></li>
-            <li><a href="#emsp参数量计算"> 参数量计算</a></li>
+            <li><a href="#量化后的矩阵计算可以表示如下">量化后的矩阵计算可以表示如下</a></li>
+            <li><a href="#量化后的全连接层计算可以表示如下">量化后的全连接层计算可以表示如下</a></li>
+            <li><a href="#量化后的卷积计算可以表示如下">量化后的卷积计算可以表示如下</a></li>
           </ol>
         </li>
       </ol>
@@ -319,12 +322,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">Lec2：神经网络基础</a>
+            <a href="/p/lec5-%E9%87%8F%E5%8C%96-i/">Lec5 :量化 I</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Basics
+            Quantization
         </h3>
         
     </div>
@@ -345,7 +348,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2024-12-13</time>
+                <time class="article-time--published">2024-12-26</time>
             </div>
         
 
@@ -361,46 +364,108 @@
     <section class="article-content">
     
     
-    <h2 id="常用的神经网络层">常用的神经网络层
-</h2><h3 id="全连接层">全连接层
-</h3><p>  权重的数量：$c_i*c_o$，分别代表输入维度和输出维度</p>
-<h3 id="卷积层">卷积层
-</h3><h4 id="emsp感受野"> 感受野
-</h4><p>  是指输出的一个像素由多少元素决定，越大说明涵盖的信息越全面</p>
-<h4 id="emsp参数"> 参数
-</h4><p>  首先是一些概念，stride指卷积的步长，padding指边缘填充的元素数量，pooling：maxpooling、average pooling，可以降维。</p>
-<p>  假设输入的尺寸是: $n\times c_i\times w_i\times h_i$，分别表示batch_size,输入通道数，输入feature map的宽度和高度</p>
-<p>  输出的尺寸是：$n\times c_o\times w_o\times h_o$，分别表示batch_size,输出通道数，输出feature map的宽度和高度</p>
-<p>  权重的形状：$c_i\times c_o\times k_w\times k_h$，后两个是kernal的size，一般是（3，3），（5，5）</p>
-<p>  高和宽一般相等，输出的尺寸可以计算为：</p>
-$$
-h_o=\frac{h_i+2p-k}{s}+1
-$$<h4 id="emsp参数量计算"> 参数量计算
-</h4><ul>
-<li>权重weihgt，即模型的大小，计算公式为：</li>
-</ul>
-$$
-c_o\times c_i/g\times k_w\times k_h
-$$<p>  对于组卷积可以减少权重数量：</p>
-$$
-c_o\times c_i/g\times k_w\times k_h
-$$<ul>
+    <h2 id="数据类型">数据类型
+</h2><ul>
 <li>
-<p>激活activation，一般和所在层输出feature map大小相同</p>
+<h3 id="整数">整数
+</h3><p>  有int4，int8，int16等。</p>
 </li>
 <li>
-<p>MAC的数量,可以理解为输出的feature map大小乘上kernal的尺寸：</p>
+<h3 id="定点数">定点数
+</h3><p>  定点数是小数点固定的数，格式很灵活，例如下面是Q3.4定点数表示低4位表示小数部分，高3位表示整数部分，最高位是符号位。</p>
+</li>
+</ul>
+<div align="center">
+<img src="定点数.png" alt="定点数" width = "50%" >
+</div>
+<ul>
+<li>
+<h3 id="浮点数">浮点数
+</h3><p>  常用的有fp8,fp16,bf16,fp32等，浮点数的精度不是均匀的，数越大精度越差。</p>
+<p>  指数位宽决定了数据格式能表示的范围，尾数部分决定了数据格式的精度，如BF16在原来的fp16基础上指数位改成了8位，增加了数据表示范围，防止训练时数据的溢出。</p>
+</li>
+</ul>
+<div align="center">
+<img src="浮点数格式.png" alt="浮点数格式" width = "50%" >
+</div>
+## 量化
+<p>  三种量化形式如下</p>
+<div align="center">
+<img src="量化形式.png" alt="定点数" width = "100%" >
+</div>
+<p>  貌似线性量化使用比较多</p>
+<ul>
+<li>
+<h3 id="k-means-based-weight-quantization"><strong>K-Means-based Weight Quantization</strong>
+</h3><p>  这种量化方法使用K-Means算法把权重分成K个簇，簇的中心值作为量化后的代表值，用簇索引值代表权重，通过查找表找到量化的权重值。</p>
+<p>  如下图所示，初始权重是32位float，通过K-Means划分成4个簇，index中存的是原始权重对应哪一个簇，codebook就是上述的查找表。</p>
+</li>
+</ul>
+<div align="center">
+<img src="kmeans.png" alt="kmeans" width = "70%" >
+</div>
+<p>  下图是Alexnet经过剪枝和量化模型大小和精度的变化，可以看出压缩率还是非常可观的。</p>
+<div align="center">
+<img src="模型压缩.png" alt="模型压缩" width = "50%" >
+</div>
+<p>  这种量化只能减少weight存储容量，在计算中仍需要浮点形式的计算，需要查codebook获得计算时的权重。</p>
+<div align="center">
+<img src="kmeans量化计算过程.png" alt="kmeans量化计算过程" width = "50%" >
+</div>
+<ul>
+<li>
+<h3 id="linear-quantization">Linear Quantization
+</h3><p>下图为线性量化的过程，Z是为了保证量化前的0等于量化后的0，S是Scale缩放比例。
+<img src="/p/lec5-%E9%87%8F%E5%8C%96-i/%E7%BA%BF%E6%80%A7%E9%87%8F%E5%8C%96%E8%BF%87%E7%A8%8B.png"
+	width="1632"
+	height="796"
+	
+	loading="lazy"
+	
+		alt="线性量化过程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="205"
+		data-flex-basis="492px"
+	
+></p>
+<p>计算使用的Z和S</p>
 </li>
 </ul>
 $$
-c_i\times k_w\times k_h\times c_o\times w_o\times h_o
-$$<ul>
+S=\frac{r_{\max}-r_{\min}}{q_{\max}-q_{\min}},Z=q_{\min}-\frac{r_{\min}}{S}
+$$<p>
+如图所示</p>
+<div align="center">
+<img src="线性量化S和Z计算.png" alt="线性量化S和Z计算" width = "50%" >
+</div>
+<ul>
 <li>
-<p>FLOPs和FLOPS</p>
-<p>前者表示总共的运算量，后者表示每秒的运算量</p>
-</li>
+<h4 id="量化后的矩阵计算可以表示如下">量化后的矩阵计算可以表示如下
+</h4></li>
 </ul>
-
+<div align="center">
+<img src="量化后矩阵运算.png" alt="量化后矩阵运算" width = "50%" >
+</div>
+<p>  可以看出量化后的计算步骤会比之前多，后两项是可以在输入数据之前预先计算的，假设是对称量化，前后的0本就对应相等，即Zw=0，那么计算可以进一步简化。</p>
+<ul>
+<li>
+<h4 id="量化后的全连接层计算可以表示如下">量化后的全连接层计算可以表示如下
+</h4></li>
+</ul>
+<div align="center">
+<img src="量化后的全连接层.png"  alt="量化后的全连接层"  width = "50%" >
+</div>
+&emsp;&emsp;这里bias的量化参数要根据权重和输入的量化方式决定。
+<ul>
+<li>
+<h4 id="量化后的卷积计算可以表示如下">量化后的卷积计算可以表示如下
+</h4></li>
+</ul>
+<div align="center">
+<img src="量化后的卷积计算.png" alt="量化后的卷积计算" style="zoom:60%;"/>
+</div>
 </section>
 
 
@@ -450,12 +515,12 @@ $$<ul>
             
                 
 <article class="">
-    <a href="/p/lec5-%E9%87%8F%E5%8C%96-i/">
+    <a href="/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Lec5 :量化 I</h2>
+            <h2 class="article-title">Lec2：神经网络基础</h2>
         </div>
     </a>
 </article>

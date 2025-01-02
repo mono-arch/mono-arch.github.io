@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Basics">
-<title>Lec2：神经网络基础</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="part 1">
+<title>Lec3,4：剪枝和稀疏</title>
 
-<link rel='canonical' href='https://mono-arch.github.io/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/'>
+<link rel='canonical' href='https://mono-arch.github.io/p/lec34%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Lec2：神经网络基础">
-<meta property='og:description' content="Basics">
-<meta property='og:url' content='https://mono-arch.github.io/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Lec3,4：剪枝和稀疏">
+<meta property='og:description' content="part 1">
+<meta property='og:url' content='https://mono-arch.github.io/p/lec34%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/'>
 <meta property='og:site_name' content='ggk'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-12-13T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Lec2：神经网络基础">
-<meta name="twitter:description" content="Basics">
+<meta name="twitter:title" content="Lec3,4：剪枝和稀疏">
+<meta name="twitter:description" content="part 1">
     <link rel="shortcut icon" href="/favicon.ico" />
 <script>
 	MathJax = {
@@ -280,18 +280,39 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#常用的神经网络层">常用的神经网络层</a>
+    <li><a href="#introduction">Introduction</a>
       <ol>
-        <li><a href="#全连接层">全连接层</a></li>
-        <li><a href="#卷积层">卷积层</a>
+        <li><a href="#什么是剪枝">什么是剪枝</a></li>
+      </ol>
+    </li>
+    <li><a href="#剪枝的粒度">剪枝的粒度</a></li>
+    <li><a href="#剪枝的标准">剪枝的标准</a>
+      <ol>
+        <li><a href="#magnitude-based-pruning">Magnitude-based Pruning</a></li>
+        <li><a href="#scaling-based-pruning">Scaling-based Pruning</a></li>
+        <li><a href="#second-order-based-pruning">Second-Order-based Pruning</a></li>
+        <li><a href="#percentage-of-zero-based-pruning">Percentage-of-Zero-based Pruning</a></li>
+        <li><a href="#regression-based-pruning">Regression-based Pruning</a></li>
+      </ol>
+    </li>
+    <li><a href="#剪枝率">剪枝率</a>
+      <ol>
+        <li><a href="#均匀和非均匀">均匀和非均匀</a></li>
+        <li><a href="#如何找到合适的剪枝率">如何找到合适的剪枝率</a>
           <ol>
-            <li><a href="#emsp感受野"> 感受野</a></li>
-            <li><a href="#emsp参数"> 参数</a></li>
-            <li><a href="#emsp参数量计算"> 参数量计算</a></li>
+            <li><a href="#sensitivity-analysis">sensitivity analysis</a></li>
+            <li><a href="#automatic-pruning">Automatic Pruning</a></li>
           </ol>
         </li>
       </ol>
     </li>
+    <li><a href="#剪枝后的微调或重新训练">剪枝后的微调或重新训练</a>
+      <ol>
+        <li><a href="#迭代剪枝">迭代剪枝</a></li>
+        <li><a href="#微调和训练中的regression">微调和训练中的regression</a></li>
+      </ol>
+    </li>
+    <li><a href="#system--hardware-support-for-sparsity">System &amp; Hardware Support for Sparsity</a></li>
   </ol>
 </nav>
         </div>
@@ -319,12 +340,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">Lec2：神经网络基础</a>
+            <a href="/p/lec34%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/">Lec3,4：剪枝和稀疏</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            Basics
+            part 1
         </h3>
         
     </div>
@@ -361,44 +382,95 @@
     <section class="article-content">
     
     
-    <h2 id="常用的神经网络层">常用的神经网络层
-</h2><h3 id="全连接层">全连接层
-</h3><p>  权重的数量：$c_i*c_o$，分别代表输入维度和输出维度</p>
-<h3 id="卷积层">卷积层
-</h3><h4 id="emsp感受野"> 感受野
-</h4><p>  是指输出的一个像素由多少元素决定，越大说明涵盖的信息越全面</p>
-<h4 id="emsp参数"> 参数
-</h4><p>  首先是一些概念，stride指卷积的步长，padding指边缘填充的元素数量，pooling：maxpooling、average pooling，可以降维。</p>
-<p>  假设输入的尺寸是: $n\times c_i\times w_i\times h_i$，分别表示batch_size,输入通道数，输入feature map的宽度和高度</p>
-<p>  输出的尺寸是：$n\times c_o\times w_o\times h_o$，分别表示batch_size,输出通道数，输出feature map的宽度和高度</p>
-<p>  权重的形状：$c_i\times c_o\times k_w\times k_h$，后两个是kernal的size，一般是（3，3），（5，5）</p>
-<p>  高和宽一般相等，输出的尺寸可以计算为：</p>
-$$
-h_o=\frac{h_i+2p-k}{s}+1
-$$<h4 id="emsp参数量计算"> 参数量计算
-</h4><ul>
-<li>权重weihgt，即模型的大小，计算公式为：</li>
+    <h2 id="introduction">Introduction
+</h2><h3 id="什么是剪枝">什么是剪枝
+</h3><p>在保持模型性能的前提下，剪掉多余的神经元和权重,使模型变得更小</p>
+<h2 id="剪枝的粒度">剪枝的粒度
+</h2><p>细粒度剪枝也叫非结构化剪枝，这种方式更灵活，能剪掉的东西更多，但硬件难以支持，剪了可能也无法提高硬件速度，粗粒度剪枝更规整，硬件友好，但剪枝比率小。</p>
+<p>下图越往右粒度越粗、剪枝比率越小、对硬件越友好</p>
+<p><img src="/p/lec34%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/%E5%89%AA%E6%9E%9D%E5%BD%A2%E5%BC%8F.png"
+	width="1244"
+	height="409"
+	
+	loading="lazy"
+	
+		alt="剪枝形式"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="304"
+		data-flex-basis="729px"
+	
+></p>
+<p>  Fine-grained剪枝能找到更多冗余权重，但没有规律，只能在定制硬件上支持，大多数时候都没用。</p>
+<p>  Pattern-based 剪枝相对使用，如2：4结构化剪枝，在每四个连续的权重中剪掉两个。</p>
+<p>  channel级剪枝对硬件来说最直观，但剪枝比率也最小。</p>
+<h2 id="剪枝的标准">剪枝的标准
+</h2><p>  剪枝剪掉的是相对不重要的神经元和权重，剪掉对模型影响最小的部分。</p>
+<ul>
+<li>
+<h3 id="magnitude-based-pruning">Magnitude-based Pruning
+</h3></li>
 </ul>
-$$
-c_o\times c_i/g\times k_w\times k_h
-$$<p>  对于组卷积可以减少权重数量：</p>
-$$
-c_o\times c_i/g\times k_w\times k_h
-$$<ul>
+<p>  根据权重的绝对值剪枝，剪去绝对值较小的权重，或者根据权重的平方和。</p>
+<ul>
 <li>
-<p>激活activation，一般和所在层输出feature map大小相同</p>
-</li>
-<li>
-<p>MAC的数量,可以理解为输出的feature map大小乘上kernal的尺寸：</p>
-</li>
+<h3 id="scaling-based-pruning">Scaling-based Pruning
+</h3></li>
 </ul>
-$$
-c_i\times k_w\times k_h\times c_o\times w_o\times h_o
-$$<ul>
+<p>  channel级剪枝，给每个输出通道乘一个scaling factor，作为参数在训练中优化，最后剪去较小的值对应的channel。</p>
+<ul>
 <li>
-<p>FLOPs和FLOPS</p>
-<p>前者表示总共的运算量，后者表示每秒的运算量</p>
-</li>
+<h3 id="second-order-based-pruning">Second-Order-based Pruning
+</h3></li>
+</ul>
+<p>  最小化因为剪枝引起的损失函数的误差</p>
+<ul>
+<li>
+<h3 id="percentage-of-zero-based-pruning">Percentage-of-Zero-based Pruning
+</h3></li>
+</ul>
+<p>  经过activation之后某个通道0的比例比较多就剪去</p>
+<ul>
+<li>
+<h3 id="regression-based-pruning">Regression-based Pruning
+</h3></li>
+</ul>
+<p>  同样是最小化误差，选用的是剪枝层剪枝后的输出和未剪枝时的输出之间的误差</p>
+<h2 id="剪枝率">剪枝率
+</h2><h3 id="均匀和非均匀">均匀和非均匀
+</h3><p>   每一层对剪枝的敏感度不同，剪枝率也应该不相同</p>
+<h3 id="如何找到合适的剪枝率">如何找到合适的剪枝率
+</h3><ul>
+<li>
+<h4 id="sensitivity-analysis">sensitivity analysis
+</h4></li>
+</ul>
+<p>  对每一层进行敏感度分析，观察每一层单独剪枝比率对模型准确率的影响，然后设定一个准确率的阈值来确定每一层剪枝的剪枝率。</p>
+<ul>
+<li>
+<h4 id="automatic-pruning">Automatic Pruning
+</h4></li>
+</ul>
+<p>  AMC:AutoML for Model Compression,把剪枝看作一个强化学习问题，自动寻找每一层合适的剪枝率,比手工寻找更有效。</p>
+<h2 id="剪枝后的微调或重新训练">剪枝后的微调或重新训练
+</h2><p>  剪枝之后模型经过微调效果会恢复一些，一般微调的学习率设置的很小</p>
+<ul>
+<li>
+<h3 id="迭代剪枝">迭代剪枝
+</h3></li>
+</ul>
+<p>  把剪枝和重新训练作为一轮迭代，迭代多轮剪枝率更大</p>
+<ul>
+<li>
+<h3 id="微调和训练中的regression">微调和训练中的regression
+</h3></li>
+</ul>
+<p>惩罚非零的参数，鼓励小参数</p>
+<h2 id="system--hardware-support-for-sparsity">System &amp; Hardware Support for Sparsity
+</h2><ul>
+<li>EIE:weight和activation都稀疏</li>
+<li>TensorCore：加入了2:4的结构化稀疏</li>
 </ul>
 
 </section>
@@ -463,12 +535,12 @@ $$<ul>
             
                 
 <article class="">
-    <a href="/p/lec34%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/">
+    <a href="/p/lec2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Lec3,4：剪枝和稀疏</h2>
+            <h2 class="article-title">Lec2：神经网络基础</h2>
         </div>
     </a>
 </article>

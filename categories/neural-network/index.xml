@@ -56,7 +56,7 @@ $$&lt;h2 id=&#34;reluleaky-relu等类relu函数&#34;&gt;ReLU、Leaky ReLU等类R
 &lt;h2 id=&#34;swish&#34;&gt;Swish
 &lt;/h2&gt;&lt;p&gt;sigmoid基础上的一种复杂形式，公式为：&lt;/p&gt;
 $$
-Swish\left( x \right) =x*Sigmoid\left( x \right) 
+Swish\left( x \right) =x\times Sigmoid\left( x \right)
 $$&lt;h2 id=&#34;gelu&#34;&gt;GeLU
 &lt;/h2&gt;&lt;p&gt;GELU 的公式有两种常见的形式：&lt;/p&gt;
 &lt;ul&gt;
@@ -72,6 +72,8 @@ $$&lt;ul&gt;
 &lt;/ul&gt;
 $$
 \mathrm{GELU}(x) \approx 0.5x \left( 1 + \tanh \left( \sqrt{\frac{2}{\pi}} \left( x + 0.044715x^3 \right) \right) \right)
+$$$$
+GELU\left( x \right) \approx x\times Sigmoid\left( 1.702\times x \right)
 $$&lt;h2 id=&#34;swiglu&#34;&gt;SwiGLU
 &lt;/h2&gt;&lt;p&gt;结合了Swish和GLU激活函数，SwiGLU 的公式如下：&lt;/p&gt;
 $$

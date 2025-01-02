@@ -14,17 +14,18 @@
 <meta name="twitter:title" content="Archives">
 <meta name="twitter:description" content="">
     <link rel="shortcut icon" href="/favicon.ico" />
-
-<link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/katex.min.css" />
-<script defer src="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdmirror.com/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
-  onload="renderMathInElement(document.body, {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false }
-          ],
-          throwOnError: false
-        });"></script>
+<script>
+	MathJax = {
+	  tex: {
+		inlineMath: [['$', '$'], ['\\(', '\\)']]
+	  },
+	  svg: {
+		fontCache: 'global'
+	  }
+	};
+	</script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 		
 
     </head>
@@ -263,12 +264,12 @@
                 
                     
 <article class="">
-    <a href="/categories/neural-network/">
+    <a href="/categories/tinyml/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Neural Network</h2>
+            <h2 class="article-title">TinyML</h2>
         </div>
     </a>
 </article>
@@ -276,12 +277,12 @@
                 
                     
 <article class="">
-    <a href="/categories/tinyml/">
+    <a href="/categories/neural-network/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">TinyML</h2>
+            <h2 class="article-title">Neural Network</h2>
         </div>
     </a>
 </article>
@@ -327,22 +328,55 @@
         <div class="article-list--compact">
             
                 <article>
-    <a href="/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0/">
+    <a href="/p/lec6-%E9%87%8F%E5%8C%96-ii/">
         <div class="article-details">
-            <h2 class="article-title">神经网络中的非线性函数</h2>
+            <h2 class="article-title">Lec6 :量化 II</h2>
             <footer class="article-time">
-                <time datetime='2024-12-13T00:00:00Z'>2024-13-12</time>
+                <time datetime='2024-12-31T00:00:00Z'>2024-12-31</time>
             </footer>
         </div>
     </a>
 </article>
             
                 <article>
-    <a href="/p/lec3%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/">
+    <a href="/p/lab0/">
         <div class="article-details">
-            <h2 class="article-title">Lec3：剪枝和稀疏</h2>
+            <h2 class="article-title">Lab0</h2>
             <footer class="article-time">
-                <time datetime='2024-12-13T00:00:00Z'>2024-13-12</time>
+                <time datetime='2024-12-31T00:00:00Z'>2024-12-31</time>
+            </footer>
+        </div>
+    </a>
+</article>
+            
+                <article>
+    <a href="/p/lec5-%E9%87%8F%E5%8C%96-i/">
+        <div class="article-details">
+            <h2 class="article-title">Lec5 :量化 I</h2>
+            <footer class="article-time">
+                <time datetime='2024-12-26T00:00:00Z'>2024-12-26</time>
+            </footer>
+        </div>
+    </a>
+</article>
+            
+                <article>
+    <a href="/p/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E9%9D%9E%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0/">
+        <div class="article-details">
+            <h2 class="article-title">神经网络中的非线性函数</h2>
+            <footer class="article-time">
+                <time datetime='2024-12-13T00:00:00Z'>2024-12-13</time>
+            </footer>
+        </div>
+    </a>
+</article>
+            
+                <article>
+    <a href="/p/lec34%E5%89%AA%E6%9E%9D%E5%92%8C%E7%A8%80%E7%96%8F/">
+        <div class="article-details">
+            <h2 class="article-title">Lec3,4：剪枝和稀疏</h2>
+            <footer class="article-time">
+                <time datetime='2024-12-13T00:00:00Z'>2024-12-13</time>
             </footer>
         </div>
     </a>
@@ -353,7 +387,7 @@
         <div class="article-details">
             <h2 class="article-title">Lec2：神经网络基础</h2>
             <footer class="article-time">
-                <time datetime='2024-12-13T00:00:00Z'>2024-13-12</time>
+                <time datetime='2024-12-13T00:00:00Z'>2024-12-13</time>
             </footer>
         </div>
     </a>
@@ -364,7 +398,26 @@
         <div class="article-details">
             <h2 class="article-title">MyFirstBlog</h2>
             <footer class="article-time">
-                <time datetime='2024-12-10T22:13:38&#43;08:00'>2024-10-12</time>
+                <time datetime='2024-12-10T22:13:38&#43;08:00'>2024-12-10</time>
+            </footer>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+    
+    
+    <div class="archives-group" id="0001">
+        <h2 class="archives-date section-title"><a href="/archives/#0001">0001</a></h2>
+        <div class="article-list--compact">
+            
+                <article>
+    <a href="/p/">
+        <div class="article-details">
+            <h2 class="article-title"></h2>
+            <footer class="article-time">
+                <time datetime='0001-01-01T00:00:00Z'>0001-01-01</time>
             </footer>
         </div>
     </a>
@@ -380,7 +433,7 @@
         
             2020 - 
         
-        2024 ggk
+        2025 ggk
     </section>
     
     <section class="powerby">
